@@ -1,0 +1,56 @@
+cmake_minimum_required(VERSION 3.16)
+project(Clash LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# ============================================================================
+# Auto-detectar la carpeta de Raylib dentro de include/
+# ============================================================================
+file(GLOB RAYLIB_CANDIDATES "${CMAKE_SOURCE_DIR}/include/raylib*")
+
+if(NOT RAYLIB_CANDIDATES)
+    message(FATAL_ERROR
+        "\n[ERROR] No se encontro ninguna carpeta raylib* dentro de include/\n"
+        "  Verifica que la carpeta de Raylib este en clash/include/\n"
+    )
+endif()
+
+list(GET RAYLIB_CANDIDATES 0 RAYLIB_DIR)
+message(STATUS "Raylib detectado: ${RAYLIB_DIR}")
+
+set(RAYLIB_INCLUDE "${RAYLIB_DIR}/include")
+set(RAYLIB_LIB_DIR "${RAYLIB_DIR}/lib")
+
+# ============================================================================
+# Libreria Clash
+# ============================================================================
+add_library(ClashLib STATIC
+    src/Clash.cpp
+)
+
+target_include_directories(ClashLib PUBLIC
+    ${CMAKE_SOURCE_DIR}/include
+    ${RAYLIB_INCLUDE}
+)
+
+target_link_directories(ClashLib PUBLIC ${RAYLIB_LIB_DIR})
+
+target_link_libraries(ClashLib PUBLIC
+    raylib
+    opengl32
+    gdi32
+    winmm
+)
+
+# ============================================================================
+# Ejemplo 2D
+# ============================================================================
+add_executable(example examples/example.cpp)
+target_link_libraries(example PRIVATE ClashLib)
+
+# ============================================================================
+# Ejemplo 3D
+# ============================================================================
+add_executable(example3d examples/example3d.cpp)
+target_link_libraries(example3d PRIVATE ClashLib)
