@@ -54,3 +54,8 @@ target_link_libraries(example PRIVATE ClashLib)
 # ============================================================================
 add_executable(example3d examples/example3d.cpp)
 target_link_libraries(example3d PRIVATE ClashLib)
+# ============================================================================
+# Ejemplo Fisica 2D
+# ============================================================================
+add_executable(physics2d examples/physics2d.cpp)
+target_link_libraries(physics2d PRIVATE ClashLib)
