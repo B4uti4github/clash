@@ -1,11 +1,6 @@
 // ============================================================================
-// EJEMPLO 2D - Sistema Solar
-// Archivo: clash/examples/example.cpp
-//
-// Demuestra:
-//  - Jerarquia de DisplayObjects (pivote → planeta → luna)
-//  - Rotacion relativa: rotar el pivote mueve todo el hijo
-//  - Camera 2D con zoom
+// EJEMPLO 2D - Fisica
+// Archivo: clash/examples/physics2d.cpp
 // ============================================================================
 
 #include "Clash.h"
@@ -14,7 +9,7 @@
 
 int main() {
 
-    Clash::ClashMasterContext master(800, 600, "Clash 2D - Sistema Solar");
+    Clash::ClashMasterContext master(800, 600, "Clash 2D - Fisica");
 
     auto ctx = std::make_shared<Clash::Context>("fisica", false);
     ctx->cam2D_x  = 400.0f;  // centrar camara en pantalla
